@@ -1,0 +1,23 @@
+<!-- pages/dashboard/dashboard.component.html -->
+<div class="container mt-4">
+  <h1>Bienvenido, {{ usuario?.username }}</h1>
+  <p class="text-muted">Rol: {{ roles.join(', ') }}</p>
+
+  <div *ngIf="isAdmin" class="row mt-4">
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h5>Total Pacientes</h5>
+        <p class="fs-3">{{ totalPacientes ?? 'Cargando...' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isRecepcion" class="row mt-4">
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h5>Panel de Recepción</h5>
+        <p>Consulta la agenda y gestiona el ingreso de pacientes.</p>
+      </div>
+    </div>
+  </div>
+</div>
