@@ -60,6 +60,19 @@ export class AuthService {
     return roles.some(role => this.hasRole(role));
   }
 
+  getPermisos(): string[] {
+  const user = this.getCurrentUser();
+  return user?.permisos || [];
+}
+
+hasPermission(permiso: string): boolean {
+  return this.getPermisos().includes(permiso);
+}
+
+hasAnyPermission(permisos: string[]): boolean {
+  return permisos.some(p => this.hasPermission(p));
+}
+
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
@@ -71,7 +84,9 @@ export class AuthService {
       id: response.usuarioId,
       username: response.username,
       email: response.email,
-      roles: response.roles
+      roles: response.roles,
+      permisos: response.permisos
     }));
+    
   }
 }
