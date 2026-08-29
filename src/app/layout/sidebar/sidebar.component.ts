@@ -43,18 +43,38 @@ interface MenuItem {
   `,
   styles: [`
     .sidebar {
-      min-height: calc(100vh - 56px);
-      width: 260px;
-      background: #2c3e50;
-      padding: 1rem 0;
-      overflow-y: auto;
-    }
+  height: 100%;      /* en vez de 100vh */
+  width: 200px;
+  background: #2c3e50;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
 
-    .nav.flex-column {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
+.nav.flex-column {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  overflow-y: scroll;   /* en vez de "auto", fuerza que siempre se muestre */
+  flex: 1;
+}
+
+.nav.flex-column::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nav.flex-column::-webkit-scrollbar-track {
+  background: #2c3e50;
+}
+
+.nav.flex-column::-webkit-scrollbar-thumb {
+  background: #4a6178;
+  border-radius: 10px;
+}
+
+.nav.flex-column::-webkit-scrollbar-thumb:hover {
+  background: #5a7690;
+}
 
     .nav-link {
       color: #d8dee5;
@@ -149,12 +169,12 @@ export class SidebarComponent {
       ]
     },
     {
-  label: 'Enfermedades', icon: 'bi-activity',
-  children: [
-    { label: 'Consultar enfermedades', route: '/enfermedades', permiso: 'ENFERMEDADES_CONSULTAR', icon: 'bi-search' },
-    { label: 'Registrar enfermedad', route: '/enfermedades/nueva', permiso: 'ENFERMEDADES_REGISTRAR', icon: 'bi-plus-circle' },
-  ]
-},
+      label: 'Enfermedades', icon: 'bi-activity',
+      children: [
+        { label: 'Consultar enfermedades', route: '/enfermedades', permiso: 'ENFERMEDADES_CONSULTAR', icon: 'bi-search' },
+        { label: 'Registrar enfermedad', route: '/enfermedades/nueva', permiso: 'ENFERMEDADES_REGISTRAR', icon: 'bi-plus-circle' },
+      ]
+    },
     {
       label: 'Administración', icon: 'bi-gear',
       children: [

@@ -15,12 +15,14 @@ import { Component } from '@angular/core';
   styles: [`
     .main-wrapper {
       display: flex;
-      min-height: calc(100vh - 60px);
+      height: calc(100vh - 60px);
+      overflow: hidden;
     }
     .content {
       flex: 1;
       padding: 20px;
       background: #f8f9fa;
+      overflow-y: auto;
     }
   `]
 })
