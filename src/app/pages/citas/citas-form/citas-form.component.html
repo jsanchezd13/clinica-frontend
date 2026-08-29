@@ -1,0 +1,74 @@
+<div class="container mt-4 form-wrapper">
+  <div class="form-card">
+    <h3>Registrar cita</h3>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Paciente *</label>
+          <select class="form-select" formControlName="pacienteId"
+                  [class.is-invalid]="f['pacienteId'].invalid && f['pacienteId'].touched">
+            <option value="" disabled>Selecciona un paciente</option>
+            <option *ngFor="let p of pacientes" [value]="p.id">
+              {{ p.nombre }} {{ p.apellido }} — {{ p.dpi }}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="f['pacienteId'].invalid && f['pacienteId'].touched">
+            Selecciona un paciente.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Médico *</label>
+          <select class="form-select" formControlName="medicoId"
+                  [class.is-invalid]="f['medicoId'].invalid && f['medicoId'].touched">
+            <option value="" disabled>Selecciona un médico</option>
+            <option *ngFor="let m of medicos" [value]="m.id">
+              {{ m.nombreCompleto || (m.nombre + ' ' + m.apellido) }} — {{ m.especialidad }}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="f['medicoId'].invalid && f['medicoId'].touched">
+            Selecciona un médico.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Fecha y hora *</label>
+          <input type="datetime-local" class="form-control" formControlName="fechaHora"
+                 [class.is-invalid]="f['fechaHora'].invalid && f['fechaHora'].touched">
+          <div class="invalid-feedback" *ngIf="f['fechaHora'].invalid && f['fechaHora'].touched">
+            La fecha y hora son obligatorias y deben ser futuras.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Duración (minutos)</label>
+          <input type="number" class="form-control" formControlName="duracionMinutos" min="5" step="5">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Motivo</label>
+        <input type="text" class="form-control" formControlName="motivo" maxlength="255">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Notas</label>
+        <textarea class="form-control" formControlName="notas" rows="3"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save" [disabled]="guardando">
+          {{ guardando ? 'Guardando...' : 'Guardar cita' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="cancelar()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

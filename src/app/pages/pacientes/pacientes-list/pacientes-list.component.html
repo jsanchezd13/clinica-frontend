@@ -1,1 +1,43 @@
-<p>pacientes-list works!</p>
+<div class="container mt-4 page-wrapper">
+
+  <div class="page-header">
+    <h3>Pacientes</h3>
+    <a routerLink="/pacientes/nuevo" class="btn-primary-clinic">
+      <i class="bi bi-plus-circle"></i> Registrar paciente
+    </a>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">Cargando pacientes...</div>
+
+  <div class="table-card" *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>DPI</th>
+          <th>Teléfono</th>
+          <th>Correo</th>
+          <th>Edad</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of pacientes">
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.apellido }}</td>
+          <td>{{ p.dpi }}</td>
+          <td>{{ p.telefono }}</td>
+          <td>{{ p.correo }}</td>
+          <td>{{ p.edad }}</td>
+          <td>
+            <span class="badge" [ngClass]="p.activo ? 'bg-success' : 'bg-secondary'">
+              {{ p.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

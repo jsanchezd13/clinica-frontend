@@ -24,7 +24,7 @@ interface MenuItem {
 
             <!-- Item con submenú, ej. Pacientes -->
             <div *ngIf="item.children">
-              <span class="nav-link fw-bold parent-label">
+              <span class="nav-link parent-label">
                 <i class="bi {{ item.icon }}"></i> {{ item.label }}
               </span>
               <ul class="nav flex-column submenu">
@@ -44,31 +44,82 @@ interface MenuItem {
   styles: [`
     .sidebar {
       min-height: calc(100vh - 56px);
-      width: 250px;
+      width: 260px;
       background: #2c3e50;
-      padding-top: 20px;
+      padding: 1rem 0;
+      overflow-y: auto;
     }
+
+    .nav.flex-column {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
     .nav-link {
-      color: white;
-      padding: 12px 20px;
-      transition: all 0.3s;
+      color: #d8dee5;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background 0.15s ease, color 0.15s ease;
+      text-decoration: none;
       cursor: pointer;
     }
+
     .nav-link:hover {
       background: #34495e;
+      color: #ffffff;
     }
+
     .nav-link.active {
       background: #3498db;
+      color: #ffffff;
     }
+
     .nav-link i {
-      margin-right: 10px;
+      font-size: 1rem;
+      flex-shrink: 0;
+      width: 18px;
+      text-align: center;
     }
+
     .parent-label {
-      opacity: 0.85;
+      opacity: 0.75;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1.1rem 1.25rem 0.4rem;
+      cursor: default;
     }
-    .submenu .nav-link {
-      padding-left: 40px;
+
+    .parent-label:hover {
+      background: transparent;
+      color: inherit;
+    }
+
+    .parent-label i {
       font-size: 0.9rem;
+    }
+
+    .submenu {
+      padding-left: 0;
+    }
+
+    .submenu .nav-link {
+      padding-left: 2.6rem;
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+
+    .submenu .nav-link i {
+      font-size: 0.85rem;
     }
   `]
 })
@@ -98,6 +149,13 @@ export class SidebarComponent {
       ]
     },
     {
+  label: 'Enfermedades', icon: 'bi-activity',
+  children: [
+    { label: 'Consultar enfermedades', route: '/enfermedades', permiso: 'ENFERMEDADES_CONSULTAR', icon: 'bi-search' },
+    { label: 'Registrar enfermedad', route: '/enfermedades/nueva', permiso: 'ENFERMEDADES_REGISTRAR', icon: 'bi-plus-circle' },
+  ]
+},
+    {
       label: 'Administración', icon: 'bi-gear',
       children: [
         { label: 'Usuarios', route: '/administracion/usuarios', permiso: 'ADMIN_USUARIOS', icon: 'bi-person-gear' },
@@ -108,14 +166,11 @@ export class SidebarComponent {
 
   constructor(private authService: AuthService) {}
 
-  // ¿Este item específico (con o sin hijos) es accesible?
   hasAccess(item: MenuItem): boolean {
-    if (!item.permiso) return true; // items sin permiso definido (ej. Inicio) siempre se muestran
+    if (!item.permiso) return true;
     return this.authService.hasPermission(item.permiso);
   }
 
-  // ¿Este item del menú principal debe mostrarse?
-  // Si tiene hijos, se muestra el padre solo si AL MENOS UN hijo es visible.
   isVisible(item: MenuItem): boolean {
     if (item.children) {
       return item.children.some(child => this.hasAccess(child));

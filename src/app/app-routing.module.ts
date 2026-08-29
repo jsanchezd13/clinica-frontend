@@ -21,6 +21,12 @@ const routes: Routes = [
     data: { permiso: 'PACIENTES_CONSULTAR' }
   },
   {
+  path: 'enfermedades',
+  loadChildren: () => import('./pages/enfermedades/enfermedades.module').then(m => m.EnfermedadesModule),
+  canActivate: [AuthGuard, permissionGuard],
+  data: { permiso: 'ENFERMEDADES_CONSULTAR' }
+},
+  {
     path: 'medicos',
     loadChildren: () => import('./pages/medicos/medicos.module').then(m => m.MedicosModule),
     canActivate: [AuthGuard, permissionGuard],

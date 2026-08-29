@@ -1,0 +1,89 @@
+<div class="container mt-4" style="max-width: 700px;">
+  <h3>Registrar médico</h3>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Nombre *</label>
+        <input type="text" class="form-control" formControlName="nombre"
+               [class.is-invalid]="f['nombre'].invalid && f['nombre'].touched">
+        <div class="invalid-feedback" *ngIf="f['nombre'].invalid && f['nombre'].touched">
+          El nombre es obligatorio (2-100 caracteres).
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Apellido *</label>
+        <input type="text" class="form-control" formControlName="apellido"
+               [class.is-invalid]="f['apellido'].invalid && f['apellido'].touched">
+        <div class="invalid-feedback" *ngIf="f['apellido'].invalid && f['apellido'].touched">
+          El apellido es obligatorio (2-100 caracteres).
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Especialidad *</label>
+        <input type="text" class="form-control" formControlName="especialidad"
+               [class.is-invalid]="f['especialidad'].invalid && f['especialidad'].touched">
+        <div class="invalid-feedback" *ngIf="f['especialidad'].invalid && f['especialidad'].touched">
+          La especialidad es obligatoria.
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Matrícula *</label>
+        <input type="text" class="form-control" formControlName="matricula"
+               [class.is-invalid]="f['matricula'].invalid && f['matricula'].touched">
+        <div class="invalid-feedback" *ngIf="f['matricula'].invalid && f['matricula'].touched">
+          La matrícula es obligatoria.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="text" class="form-control" formControlName="telefono">
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email"
+               [class.is-invalid]="f['email'].invalid && f['email'].touched">
+        <div class="invalid-feedback" *ngIf="f['email'].invalid && f['email'].touched">
+          Ingresa un correo válido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Horario inicio</label>
+        <input type="time" class="form-control" formControlName="horarioInicio">
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Horario fin</label>
+        <input type="time" class="form-control" formControlName="horarioFin">
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Años de experiencia</label>
+        <input type="number" class="form-control" formControlName="aniosExperiencia" min="0">
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="guardando">
+        {{ guardando ? 'Guardando...' : 'Guardar médico' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()">
+        Cancelar
+      </button>
+    </div>
+
+  </form>
+</div>

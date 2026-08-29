@@ -4,11 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Cita } from '../models/cita.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CitaService {
-  private baseUrl = `${environment.apiUrl}/citas`;
+  private readonly baseUrl = `${environment.apiUrl}/citas`;
 
   constructor(private http: HttpClient) {}
 
@@ -30,18 +28,6 @@ export class CitaService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
-  }
-
-  getByPaciente(pacienteId: number): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.baseUrl}/paciente/${pacienteId}`);
-  }
-
-  getByMedico(medicoId: number): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.baseUrl}/medico/${medicoId}`);
-  }
-
-  getByEstado(estado: string): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.baseUrl}/estado/${estado}`);
   }
 
   confirmar(id: number): Observable<Cita> {

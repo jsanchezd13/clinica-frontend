@@ -1,1 +1,43 @@
-<p>enfermedades-list works!</p>
+<div class="container mt-4 page-wrapper">
+
+  <div class="page-header">
+    <h3>Enfermedades</h3>
+    <a routerLink="/enfermedades/nueva" class="btn-primary-clinic">
+      <i class="bi bi-plus-circle"></i> Registrar enfermedad
+    </a>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">Cargando enfermedades...</div>
+
+  <div class="table-card" *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Código CIE</th>
+          <th>Gravedad</th>
+          <th>Crónica</th>
+          <th>Contagiosa</th>
+          <th>Recuperación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of enfermedades">
+          <td>{{ e.nombre }}</td>
+          <td>{{ e.categoria }}</td>
+          <td>{{ e.codigoCie }}</td>
+          <td>
+            <span class="badge" [ngClass]="gravedadClass(e.nivelGravedad)">
+              {{ e.nivelGravedadTexto || e.nivelGravedad }}
+            </span>
+          </td>
+          <td>{{ e.esCronica ? 'Sí' : 'No' }}</td>
+          <td>{{ e.esContagiosa ? 'Sí' : 'No' }}</td>
+          <td>{{ e.tiempoRecuperacionDias ? e.tiempoRecuperacionDias + ' días' : '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

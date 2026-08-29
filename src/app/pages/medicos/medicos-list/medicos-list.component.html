@@ -1,1 +1,31 @@
-<p>medicos-list works!</p>
+<!-- medicos-list.component.html -->
+<div class="container mt-4">
+  <h3>Médicos</h3>
+  <div *ngIf="loading">Cargando...</div>
+  <table class="table" *ngIf="!loading">
+    <thead>
+      <tr>
+        <th>Nombre completo</th>
+        <th>Especialidad</th>
+        <th>Matrícula</th>
+        <th>Teléfono</th>
+        <th>Experiencia</th>
+        <th>Activo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of medicos">
+        <td>{{ m.nombreCompleto }}</td>
+        <td>{{ m.especialidad }}</td>
+        <td>{{ m.matricula }}</td>
+        <td>{{ m.telefono }}</td>
+        <td>{{ m.aniosExperienciaTexto }}</td>
+        <td>
+          <span class="badge" [ngClass]="m.activo ? 'bg-success' : 'bg-secondary'">
+            {{ m.activo ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

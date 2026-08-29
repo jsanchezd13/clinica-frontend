@@ -25,8 +25,6 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     SidebarComponent,
     MainLayoutComponent,
     UnauthorizedComponent
-    // ❌ PacientesListComponent NO va aquí
-    // ❌ PacientesModule NO va aquí tampoco
   ],
   imports: [
     BrowserModule,
@@ -39,7 +37,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
       preventDuplicates: true,
       timeOut: 3000
     }),
-    PacientesModule   // ✅ AQUÍ es donde va, en imports
+    PacientesModule   // AQUÍ es donde va, en imports
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi(), withFetch()),

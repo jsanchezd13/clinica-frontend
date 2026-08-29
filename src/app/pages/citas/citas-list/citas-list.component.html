@@ -1,1 +1,41 @@
-<p>citas-list works!</p>
+<div class="container mt-4 page-wrapper">
+
+  <div class="page-header">
+    <h3>Citas</h3>
+    <a routerLink="/citas/nueva" class="btn-primary-clinic">
+      <i class="bi bi-plus-circle"></i> Registrar cita
+    </a>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">Cargando citas...</div>
+
+  <div class="table-card" *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Médico</th>
+          <th>Especialidad</th>
+          <th>Fecha y hora</th>
+          <th>Motivo</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of citas">
+          <td>{{ c.pacienteNombreCompleto }}</td>
+          <td>{{ c.medicoNombreCompleto }}</td>
+          <td>{{ c.medicoEspecialidad }}</td>
+          <td>{{ c.fechaHoraFormateada || c.fechaHora }}</td>
+          <td>{{ c.motivo }}</td>
+          <td>
+            <span class="badge" [ngClass]="estadoClass(c.estado)">
+              {{ c.estadoTexto || c.estado }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

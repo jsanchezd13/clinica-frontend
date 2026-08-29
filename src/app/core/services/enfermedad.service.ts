@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Enfermedad } from '../models/enfermedad.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class EnfermedadService {
-  private baseUrl = `${environment.apiUrl}/enfermedades`;
+  private readonly baseUrl = `${environment.apiUrl}/enfermedades`;
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +16,19 @@ export class EnfermedadService {
 
   getById(id: number): Observable<Enfermedad> {
     return this.http.get<Enfermedad>(`${this.baseUrl}/${id}`);
+  }
+
+  getActivas(): Observable<Enfermedad[]> {
+    return this.http.get<Enfermedad[]>(`${this.baseUrl}/activos`);
+  }
+
+  buscarPorCategoria(categoria: string): Observable<Enfermedad[]> {
+    return this.http.get<Enfermedad[]>(`${this.baseUrl}/categoria/${categoria}`);
+  }
+
+  buscarPorNombre(nombre: string): Observable<Enfermedad[]> {
+    const params = new HttpParams().set('nombre', nombre);
+    return this.http.get<Enfermedad[]>(`${this.baseUrl}/buscar`, { params });
   }
 
   create(enfermedad: Enfermedad): Observable<Enfermedad> {
@@ -30,13 +41,5 @@ export class EnfermedadService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
-  }
-
-  searchByNombre(nombre: string): Observable<Enfermedad[]> {
-    return this.http.get<Enfermedad[]>(`${this.baseUrl}/buscar?nombre=${nombre}`);
-  }
-
-  getActivos(): Observable<Enfermedad[]> {
-    return this.http.get<Enfermedad[]>(`${this.baseUrl}/activos`);
   }
 }

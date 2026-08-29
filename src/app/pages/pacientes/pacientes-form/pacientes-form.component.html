@@ -1,0 +1,80 @@
+<div class="container mt-4 form-wrapper">
+  <div class="form-card">
+    <h3>Registrar paciente</h3>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Nombre *</label>
+          <input type="text" class="form-control" formControlName="nombre"
+                 [class.is-invalid]="f['nombre'].invalid && f['nombre'].touched">
+          <div class="invalid-feedback" *ngIf="f['nombre'].invalid && f['nombre'].touched">
+            El nombre es obligatorio (2-50 caracteres).
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Apellido *</label>
+          <input type="text" class="form-control" formControlName="apellido"
+                 [class.is-invalid]="f['apellido'].invalid && f['apellido'].touched">
+          <div class="invalid-feedback" *ngIf="f['apellido'].invalid && f['apellido'].touched">
+            El apellido es obligatorio (2-50 caracteres).
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">DPI *</label>
+          <input type="text" class="form-control" formControlName="dpi" maxlength="13"
+                 placeholder="13 dígitos, sin espacios ni guiones"
+                 [class.is-invalid]="f['dpi'].invalid && f['dpi'].touched">
+          <div class="invalid-feedback" *ngIf="f['dpi'].invalid && f['dpi'].touched">
+            El DPI debe contener exactamente 13 dígitos.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Teléfono *</label>
+          <input type="text" class="form-control" formControlName="telefono" maxlength="8"
+                 placeholder="8 dígitos"
+                 [class.is-invalid]="f['telefono'].invalid && f['telefono'].touched">
+          <div class="invalid-feedback" *ngIf="f['telefono'].invalid && f['telefono'].touched">
+            El teléfono debe contener 8 dígitos.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Correo *</label>
+          <input type="email" class="form-control" formControlName="correo"
+                 [class.is-invalid]="f['correo'].invalid && f['correo'].touched">
+          <div class="invalid-feedback" *ngIf="f['correo'].invalid && f['correo'].touched">
+            Ingresa un correo válido.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Fecha de nacimiento *</label>
+          <input type="date" class="form-control" formControlName="fechaNacimiento"
+                 [class.is-invalid]="f['fechaNacimiento'].invalid && f['fechaNacimiento'].touched">
+          <div class="invalid-feedback" *ngIf="f['fechaNacimiento'].invalid && f['fechaNacimiento'].touched">
+            La fecha de nacimiento es obligatoria y debe ser una fecha pasada.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save" [disabled]="guardando">
+          {{ guardando ? 'Guardando...' : 'Guardar paciente' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="cancelar()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
