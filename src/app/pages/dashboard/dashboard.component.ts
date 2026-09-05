@@ -33,9 +33,9 @@ export class DashboardComponent implements OnInit {
   }
 
   private cargarTotalPacientes(): void {
-    this.pacienteService.getAll().subscribe({
-      next: (pacientes: Paciente[]) => this.totalPacientes = pacientes.length,
-      error: () => this.totalPacientes = 0
-    });
-  }
+  this.pacienteService.buscar({ page: 0, size: 1 }).subscribe({
+    next: (respuesta) => this.totalPacientes = respuesta.metadata.totalRecords,
+    error: () => this.totalPacientes = 0
+  });
+}
 }

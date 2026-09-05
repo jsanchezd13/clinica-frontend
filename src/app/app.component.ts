@@ -7,7 +7,6 @@ import { isPlatformBrowser } from '@angular/common';
     <div *ngIf="isAuthenticated" class="app-container">
       <app-header></app-header>
       <div class="main-content">
-        <app-sidebar></app-sidebar>
         <div class="content-area">
           <router-outlet></router-outlet>
         </div>

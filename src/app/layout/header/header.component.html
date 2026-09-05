@@ -1,0 +1,38 @@
+<nav class="navbar-clinic">
+  <div class="navbar-left">
+    <span class="brand">Clínica UMG</span>
+
+    <ul class="nav-horizontal">
+      <li class="nav-item-h" *ngFor="let item of menuItems">
+        <ng-container *ngIf="isVisible(item)">
+
+          <!-- Item simple, ej. Inicio -->
+          <a *ngIf="!item.children" class="nav-link-h" [routerLink]="item.route" routerLinkActive="active">
+            <i class="bi {{ item.icon }}"></i> {{ item.label }}
+          </a>
+
+          <!-- Item con dropdown -->
+          <div *ngIf="item.children" class="dropdown-wrapper">
+            <span class="nav-link-h dropdown-trigger">
+              <i class="bi {{ item.icon }}"></i> {{ item.label }}
+              <i class="bi bi-chevron-down chevron"></i>
+            </span>
+            <ul class="dropdown-menu-custom">
+              <li *ngFor="let child of item.children">
+                <a *ngIf="hasAccess(child)" class="dropdown-item-custom" [routerLink]="child.route" routerLinkActive="active">
+                  <i class="bi {{ child.icon }}"></i> {{ child.label }}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </ng-container>
+      </li>
+    </ul>
+  </div>
+
+  <div class="navbar-right">
+    <span class="user-info">{{ usuario?.username }} ({{ roles.join(', ') }})</span>
+    <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+  </div>
+</nav>

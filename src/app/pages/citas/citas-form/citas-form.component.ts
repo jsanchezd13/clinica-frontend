@@ -37,15 +37,14 @@ export class CitasFormComponent implements OnInit {
       notas: [''],
     });
   }
-
   ngOnInit(): void {
-    this.pacienteService.getAll().subscribe({
-      next: (data) => this.pacientes = data
-    });
-    this.medicoService.getAll().subscribe({
-      next: (data) => this.medicos = data
-    });
-  }
+  this.pacienteService.buscar({ page: 0, size: 200 }).subscribe({
+    next: (respuesta) => this.pacientes = respuesta.data
+  });
+  this.medicoService.getAll().subscribe({
+    next: (data) => this.medicos = data
+  });
+}
 
   onSubmit(): void {
     if (this.form.invalid) {
