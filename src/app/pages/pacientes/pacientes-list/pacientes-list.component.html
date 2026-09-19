@@ -60,7 +60,7 @@
             </span>
           </td>
         </tr>
-        <tr *ngIf="pacientes.length === 0">
+        <tr *ngIf="!pacientes || pacientes.length === 0">
           <td colspan="7" class="text-center text-muted py-4">No se encontraron pacientes.</td>
         </tr>
       </tbody>
