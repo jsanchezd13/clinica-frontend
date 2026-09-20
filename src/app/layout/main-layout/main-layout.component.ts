@@ -4,16 +4,25 @@ import { Component } from '@angular/core';
   selector: 'app-main-layout',
   template: `
     <app-header></app-header>
-    <main class="content">
-      <router-outlet></router-outlet>
-    </main>
+    <div class="main-wrapper">
+      <app-sidebar></app-sidebar>
+      <main class="content">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
   `,
   styles: [`
+    .main-wrapper {
+      display: flex;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
     .content {
+      flex: 1;
       padding: 20px;
       background: #f8f9fa;
-      min-height: calc(100vh - 60px);
+      overflow-y: auto;
     }
   `]
 })
-export class MainLayoutComponent {}
+export class MainLayoutComponent {} 
